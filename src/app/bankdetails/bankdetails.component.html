@@ -1,0 +1,106 @@
+<p-toast></p-toast>
+<div class="col-md-12">
+  <div class="my-overlay" *ngIf="showOverlay">
+    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+  </div>
+  <div class="card card-container my-auto">
+    <label style="text-align: center;"><b>Bank Details</b></label>
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+      <div class="form-group">
+        <label for="bankName">Bank Name*</label>
+        <input type="text" class="form-control" name="bankName" [(ngModel)]="form.bankName" required
+          #bankName="ngModel" />
+        <div class="alert-danger" *ngIf="f.submitted && bankName.invalid">
+          <div *ngIf="bankName.errors.required">Bank name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="ifscCode">Branch IFSC Code*</label>
+        <input type="text" class="form-control" name="ifscCode" [(ngModel)]="form.ifscCode" required
+          #ifscCode="ngModel" />
+        <div class="alert-danger" *ngIf="f.submitted && ifscCode.invalid">
+          <div *ngIf="ifscCode.errors.required">IFSC code name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="accNo">Account Number*</label>
+        <input type="text" class="form-control" name="accNo" [(ngModel)]="form.accNo" required
+          #accNo="ngModel" />
+        <div class="alert-danger" *ngIf="f.submitted && accNo.invalid">
+          <div *ngIf="accNo.errors.required">Account number is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="benificiaryNum">Beneficiary Number*</label>
+        <input type="text" class="form-control" name="benificiaryNum" [(ngModel)]="form.benificiaryNum" required
+          #benificiaryNum="ngModel" />
+        <div class="alert-danger" *ngIf="f.submitted && benificiaryNum.invalid">
+          <div *ngIf="benificiaryNum.errors.required">Beneficiary Number is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Save</button>
+      </div>
+
+       <!--<div class="form-group">
+        <label for="itemCategory">Item Category</label>
+        <select class="form-control" name="itemCategory" [(ngModel)]="form.itemCategory">
+          <option>--Select Category--</option>
+          <option *ngFor="let category of itemCategoryList" value={{category}}>
+            {{category}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="itemStatus">Item Status</label>
+        <select class="form-control" name="itemStatus" [(ngModel)]="form.itemStatus">
+          <option>--Select Status--</option>
+          <option *ngFor="let status of itemStatusList" value={{status}}>
+            {{status}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="itemQuantity">Item Quantity</label>
+        <select class="form-control" name="itemQuantity" [(ngModel)]="form.itemQuantity">
+          <option>--Select Quantity--</option>
+          <option *ngFor="let quantity of itemQuantityList" value={{quantity}}>
+            {{quantity}}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="itemPrice">Item Price</label>
+        <input type="number" class="form-control" name="itemPrice" [(ngModel)]="form.itemPrice" required
+          #itemPrice="ngModel" />
+        <div class="alert-danger" *ngIf="f.submitted && itemPrice.invalid">
+          <div *ngIf="itemPrice.errors.required">Please provide Price</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Save</button>
+      </div> -->
+
+      <!-- <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+        Failed to add item!!<br />{{ errorMessage }}
+      </div> -->
+    </form>
+
+    <!-- <div class="alert alert-success" *ngIf="isSuccessful">
+      Item added successfully!!
+    </div> -->
+
+    <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+  </div>
+</div>

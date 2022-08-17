@@ -1,0 +1,103 @@
+<p-toast></p-toast>
+<div class="my-overlay" *ngIf="showOverlay">
+  <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+</div>
+<div class="card card-table-container">
+
+  <p-table class="table-resp" #dt [value]="itemList" [rows]="10" [paginator]="true"
+    [globalFilterFields]="['itemname']" [(selection)]="selectedProducts"
+    [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Items</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..." />
+        </span>
+        <span id="export" class="p-input-icon-left">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success"
+            pTooltip="XLS" tooltipPosition="bottom"></button>
+        </span>
+      </div>
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{itemList ? itemList.length : 0 }} items.
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="itemname">Name <p-sortIcon field="itemname"></p-sortIcon>
+        </th>
+        <!-- <th pSortableColumn="itemcategory">Category <p-sortIcon field="itemcategory"></p-sortIcon>
+        </th>
+        <th pSortableColumn="itemquantity">Quantity <p-sortIcon field="itemquantity"></p-sortIcon>
+        </th>
+        <th pSortableColumn="itemprice">Price <p-sortIcon field="itemprice"></p-sortIcon>
+        </th> -->
+        <th pSortableColumn="itemstatus">Status <p-sortIcon field="itemstatus"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{product.itemname}}</td>
+        <!-- <td>{{product.itemcategory}}</td>
+        <td>{{product.itemquantity}}</td>
+        <td>{{product.itemprice | currency:'INR'}}</td> -->
+        <td>{{product.itemstatus}}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+            (click)="editProduct(product)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+            (click)="deleteProduct(product)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Item Details" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Name</label>
+      <input type="text" pInputText id="name" [(ngModel)]="product.itemname" [disabled]="dropDownDisabled" required
+        autofocus />
+      <small class="p-invalid" *ngIf="submitted && !product.itemname">Name is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="description">Category</label>
+      <p-dropdown [options]="itemCategoryList" placeholder="Select Category" [showClear] [disabled]="dropDownDisabled"
+        [(ngModel)]="product.itemcategory" [style]="{'width':'100%'}">
+      </p-dropdown>
+    </div>
+    <div class="p-field">
+      <label class="p-mb-3">Quantity</label>
+      <p-dropdown [options]="itemQuantityList" placeholder="Select Quantity" [showClear] [disabled]="dropDownDisabled"
+        [(ngModel)]="product.itemquantity" [style]="{'width':'100%'}">
+      </p-dropdown>
+    </div>
+    <div class="p-formgrid p-grid">
+      <div class="p-field p-col">
+        <label for="quantity">Status</label>
+        <p-dropdown [options]="statuses" placeholder="Select Status" [showClear] [(ngModel)]="product.itemstatus"
+          [style]="{'width':'100%'}">
+        </p-dropdown>
+      </div>
+      <div class="p-field p-col">
+        <label for="price">Price</label>
+        <p-inputNumber id="price" [(ngModel)]="product.itemprice" mode="currency" currency="INR">
+        </p-inputNumber>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

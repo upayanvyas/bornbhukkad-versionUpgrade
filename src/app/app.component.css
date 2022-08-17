@@ -1,0 +1,40 @@
+.topnav ul li{
+  padding-left: 10px;
+}
+
+.responsive ul li{
+  padding-left: 10px;
+}
+.store-button{margin-left:37px}
+.status-button{min-width: 60px;}
+
+
+@media screen and (max-width: 1023.9px) {
+  /* .topnav .unordered-list .burger-icon{vertical-align: -webkit-baseline-middle;} */
+  .topnav .unordered-list li:not(:first-child) {display: none;}
+  .topnav .nav-buttons{display: none;} 
+}
+
+@media screen and (min-width: 1024px){
+  .topnav .unordered-list .burger-icon {display:none;}
+}
+
+@media screen and (min-width: 1024px){
+  .topnav .unordered-list .burger-icon {display:none;}
+}
+
+@media screen and (max-width: 575.9px){
+  .store-type {padding-left:0px;}
+  .store-button{margin-left: 10px; margin-bottom: 5px; font-size: 10px;}
+  .status-button{font-size: 10px;}
+}
+
+
+
+
+
+
+
+
+
+

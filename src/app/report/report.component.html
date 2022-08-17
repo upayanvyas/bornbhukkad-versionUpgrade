@@ -1,0 +1,40 @@
+<div class="my-overlay" *ngIf="showOverlay">
+  <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+</div>
+
+<div class="col-md-20">
+  <div class="p-grid">
+    <div class="p-col">
+      <p-panel header="Download Reports">
+        <p class="p-m-0">
+          <button (click)="getData()" class="btn btn-primary btn-block">Vendor Registartion -> Userwise</button>
+          <br />
+          <button (click)="paymentSettlement()" class="btn btn-primary btn-block">Payment Settlement -> All
+            Vendors</button>
+          <br />
+        </p>
+      </p-panel>
+    </div>
+    <div class="p-col">
+      <p-panel header="VendorOnboarded By Month">
+        <p class="p-m-0">
+          <p-chart type="bar" [data]="barChart"></p-chart>
+        </p>
+      </p-panel>
+    </div>
+    <div class="p-col">
+      <p-panel header="VendorCounts By Types">
+        <p class="p-m-0">
+          <p-chart type="pie" [data]="pieChart"></p-chart>
+        </p>
+      </p-panel>
+    </div>
+  </div>
+  <div class="p-col">
+    <p-panel header="User Registartion By Month">
+      <p class="p-m-0">
+        <p-chart type="bar" [data]="userRegdCount"></p-chart>
+      </p>
+    </p-panel>
+  </div>
+</div>

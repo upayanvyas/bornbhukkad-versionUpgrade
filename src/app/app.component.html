@@ -1,0 +1,153 @@
+<div id="app">
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark topnav" id="id_topnav">
+    <div class="container-fluid">
+      <div class="row w-100 mx-auto">
+        <ul class="navbar-nav mr-auto unordered-list col-xs-12 col-md-12 col-lg-7" *ngIf="isLoggedIn">
+
+          <li class="burger-icon">
+            <a href="javascript:void(0);" class="burger-icon" (click)="toggleNavbar()">
+              <i class="navbar-toggler-icon"></i>
+            </a>
+          </li>
+
+          <li class="nav-item" *ngIf="!isLoggedIn">
+            <a href="/login" class="nav-link" routerLink="login">Login</a>
+          </li>
+
+          <li class="nav-item ">
+            <a href="/profile" class="nav-link" routerLink="profile">Profile</a>
+          </li>
+
+          <li class="nav-item ">
+            <!-- <a href="#" class="nav-link" routerLink="profile">Profile</a> -->
+            <button class="btn btn-primary" onclick="pushSubscribe()">Subscribe</button>
+          </li>
+
+          <li class="nav-item" *ngIf="showAdminBoard" routerLinkActive="active">
+            <a href="/register" class="nav-link" routerLink="register">Add User</a>
+          </li>
+
+          <li class="nav-item" *ngIf="showAdminBoard || showModeratorBoard || showSalesBoard" routerLinkActive="active">
+            <a href="/addVendor" class="nav-link" routerLink="addVendor">Add Vendor</a>
+          </li>
+
+          <li class="nav-item" *ngIf="showAdminBoard || showModeratorBoard" routerLinkActive="active">
+            <a href="/vendorList" class="nav-link" routerLink="vendorList">Vendor List</a>
+          </li>
+
+          <li class="nav-item" routerLinkActive="active"
+            *ngIf="isLoggedIn && !showAdminBoard && !showModeratorBoard && !showSalesBoard">
+            <a href="/addItem" class="nav-link" routerLink="addItem">Add Item</a>
+          </li>
+
+          <li class="nav-item" *ngIf="!showAdminBoard && !showModeratorBoard && !showSalesBoard"
+            routerLinkActive="active">
+            <a href="/itemDetails" class="nav-link" *ngIf="isLoggedIn" routerLink="itemDetails">Item List</a>
+          </li>
+
+          <li class="nav-item" *ngIf="showAdminBoard || showModeratorBoard || showSalesBoard" routerLinkActive="active">
+            <a href="/generateQRCodes" class="nav-link" routerLink="generateQRCodes">QR Code</a>
+          </li>
+
+          <li class="nav-item" *ngIf="showAdminBoard" routerLinkActive="active">
+            <a href="/reports" class="nav-link" routerLink="reports">Reports</a>
+          </li>
+
+          <li class="nav-item" routerLinkActive="active"
+            *ngIf="isLoggedIn && !showAdminBoard && !showModeratorBoard && !showSalesBoard">
+            <a href="/orderDetails" class="nav-link" *ngIf="isLoggedIn" routerLink="orderDetails">Order Details</a>
+          </li>
+
+          <!-- <li class="nav-item" *ngIf="isLoggedIn && showModeratorBoard" routerLinkActive="active">
+            <a href="/bankDetails" class="nav-link" *ngIf="isLoggedIn" routerLink="bankDetails">Bank Details</a>
+          </li> -->
+
+          <li class="nav-item" routerLinkActive="active" *ngIf="isLoggedIn && !showAdminBoard && !showModeratorBoard && !showSalesBoard">
+            <a href="/bankDetails" class="nav-link" routerLink="bankDetails">Bank Details</a>
+          </li>
+
+          <li class="nav-item">
+            <a href class="nav-link" (click)="logout()">Logout</a>
+          </li>
+
+          <!-- <li class="nav-item" *ngIf="showModeratorBoard" routerLinkActive="active">
+            <a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a>
+          </li>
+          -->
+
+        </ul>
+
+        <div class="nav-buttons col-xs-12 col-md-12 col-lg-5" *ngIf="isLoggedIn">
+          <div class="row">
+            <div class=" col-8 col-xs-6 col-md-8 col-lg-9 store-type">
+              <!-- <button class="btn btn-primary store-button"
+                *ngIf="isLoggedIn && !showAdminBoard && !showModeratorBoard && !showSalesBoard">fjrifrfjpij
+                :JUSpgjaihfoi aohohorhgofl/ aPFAgoahrhg 'aiho/hh
+              </button> -->
+              <button class="btn btn-primary store-button"
+                *ngIf="isLoggedIn && !showAdminBoard && !showModeratorBoard && !showSalesBoard"> {{ username }} -
+                {{storeType}}
+              </button>
+              <!-- <a class="btn btn-primary"
+                *ngIf="isLoggedIn && !showAdminBoard && !showModeratorBoard && !showSalesBoard">
+                {{ username }} - {{storeType}}
+              </a> -->
+            </div>
+            <div class=" col-4 col-xs-3 col-md-4 col-lg-3">
+              <!-- <button class="btn btn-primary status-button float-right" (click)="onChangeStatus()">{{vendorStatus ? 'OPEN':'CLOSED' }}</button> -->
+              <button class="btn btn-primary status-button float-right"
+                (click)="onChangeStatus()">{{vendorSts}}</button>
+              <!-- <p-toggleButton class="p-tgl" *ngIf="isLoggedIn && !showAdminBoard && !showModeratorBoard && !showSalesBoard"
+                (onChange)="onChangeStatus()" [(ngModel)]="vendorStatus" onLabel="OPEN" offLabel="CLOSED"
+                onIcon="pipi-check" offIcon="pi pi-times">
+              </p-toggleButton> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <li class="nav-item"> -->
+    <!-- <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a> -->
+    <!-- <a class="navbar-brand btn btn-primary"
+          *ngIf="isLoggedIn && !showAdminBoard && !showModeratorBoard && !showSalesBoard">
+          {{ username }} - {{storeType}}</a>
+        <p-toggleButton *ngIf="isLoggedIn && !showAdminBoard && !showModeratorBoard && !showSalesBoard"
+          (onChange)="onChangeStatus()" [(ngModel)]="vendorStatus" onLabel="OPEN" offLabel="CLOSED" onIcon="pipi-check"
+          offIcon="pi pi-times" [style]="{'width': '10em'}"></p-toggleButton>
+      </li>
+    </ul> -->
+
+  </nav>
+
+  <div class="container">
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">You Have Been Idle!</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{idleState}}
+        <!-- <div class="row mrgbtm">
+          <div class="col-md-6">
+            <button type="button" (click)="logout()" class="btn btn-danger">Logout</button>
+          </div>
+          <div class="col-md-6">
+            <button type="button" (click)="stay()" class="btn btn-success">Stay</button>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<p-toast></p-toast>
+<div class="my-overlay" *ngIf="showOverlay">
+  <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+</div>
+
+<div class="card">
+  <p-table #dt [value]="vendorsList" [rows]="5" [paginator]="true" [globalFilterFields]="['storename','accId']"
+    [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Vendors</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..." />
+        </span>
+        <span id="export" class="p-input-icon-left">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success"
+            pTooltip="XLS" tooltipPosition="bottom"></button>
+        </span>
+      </div>
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{vendorsList ? vendorsList.length : 0 }} Vendors.
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="storename">StoreName <p-sortIcon field="storename"></p-sortIcon>
+        </th>
+        <th pSortableColumn="storecategory">StoreType <p-sortIcon field="storecategory"></p-sortIcon>
+        </th>
+        <th pSortableColumn="storequantity">Email <p-sortIcon field="storequantity"></p-sortIcon>
+        </th>
+        <th pSortableColumn="storeprice">Address <p-sortIcon field="storeprice"></p-sortIcon>
+        </th>
+        <th pSortableColumn="storephone">Phone <p-sortIcon field="storephone"></p-sortIcon>
+        </th>
+        <th pSortableColumn="storeaccid">RazorPay Id <p-sortIcon field="storeaccid"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-vendor>
+      <tr>
+        <td>{{vendor.storename}}</td>
+        <td>{{vendor.storetype}}</td>
+        <td>{{vendor.email}}</td>
+        <td>{{vendor.address}}</td>
+        <td>{{vendor.phone == null ? 'N/A' : vendor.phone}}</td>
+        <td>{{vendor.accId == null ? 'N/A' : vendor.accId}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

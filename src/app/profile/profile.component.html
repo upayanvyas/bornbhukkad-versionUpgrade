@@ -1,0 +1,53 @@
+<div class="col-md-16">
+  <!-- <button class="btn btn-primary" (click)="rotate(this)" id="button">
+    Lock
+  </button>
+  <button class="btn btn-primary" (click)="screen.orientation.unlock()">
+    Unlock
+  </button> -->
+  <div class="card card-container" *ngIf="currentUser; else loggedOut">
+
+    <!-- <div class="mb-4 profile_image">
+      <input class="upload-text" type="file">
+      <img src="../../assets/bb_images/dummy-post-horisontal.jpg" alt="Responsive image" class="img-fluid">
+    </div> -->
+
+    <div class="mb-3" *ngIf="!showAdminBoard && !showModeratorBoard && !showSalesBoard" >
+      <img src="../../assets/bb_images/dummy-post-horisontal.jpg" alt="Responsive image" class="img-fluid">
+    </div>
+    <form class="col-sm-12" (ngSubmit)="uploadImage(fileToUpload)" *ngIf=" !showAdminBoard && !showModeratorBoard && !showSalesBoard">
+      <div class="row">
+        <div class="col-sm-12">
+          <input type="file" class="mb-2" id="file"  limit="1" accept="image/png, image/gif, image/jpeg" (change)="handleFileInput($event.target.files)">
+        </div>
+        <div class="col-sm-12">.
+          <button class="btn btn-primary w-100" type="submit">Upload</button>
+        </div>
+      </div>
+    </form>
+
+    <hr *ngIf=" !showAdminBoard && !showModeratorBoard && !showSalesBoard">
+
+    <h3>
+      <strong>{{ currentUser.username }}</strong> Profile
+    </h3>
+    <p>
+      <strong>Email:</strong>
+      {{ currentUser.email }}
+    </p>
+    <p>
+      <strong>RazorPayId:</strong>
+      {{ currentUser.email }}
+    </p>
+    <!-- <strong>Roles:</strong>
+  <ul>
+    <li *ngFor="let role of currentUser.roles">
+      {{ role }}
+    </li>
+  </ul> -->
+  </div>
+</div>
+
+<ng-template #loggedOut>
+  Please login.
+</ng-template>

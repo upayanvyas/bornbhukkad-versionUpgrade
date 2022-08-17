@@ -1,0 +1,142 @@
+<p-toast></p-toast>
+<div class="col-md-12">
+  <div class="my-overlay" *ngIf="showOverlay">
+    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+  </div>
+  <div class="card card-container my-auto">
+    <label style="text-align: center;"><b>Add Item Form</b></label>
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+          (click)="bulkUpload()">
+        <label class="form-check-label" for="flexRadioDefault1">
+          Bulk Upload
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+          (click)="bulkUpload()" checked>
+        <label class="form-check-label" for="flexRadioDefault2">
+          single Item
+        </label>
+      </div>
+
+      <div *ngIf="isBulk">
+        <div class="form-group">
+          <label for="myfile">File Upload</label>
+          <input class="mb-4" type="file" accept=".xlsx, .xls" id="customFile" name="myfile"
+            (change)="onFileSelect($event.target.files)">
+          <div class="alert-danger" *ngIf="f.submitted">
+            <div *ngIf="myfile.errors.required">file is required</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="!isBulk">
+        <div class="form-group">
+          <label for="itemName">Item Name</label>
+          <input type="text" class="form-control" name="itemName" [(ngModel)]="form.itemName" required
+            #itemName="ngModel" />
+          <div class="alert-danger" *ngIf="f.submitted && itemName.invalid">
+            <div *ngIf="itemName.errors.required">Item name is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="itemCategory">Item Category</label>
+          <select class="form-control" name="itemCategory" [(ngModel)]="form.itemCategory"
+            (change)="otherItemSelected()">
+            <option>--Select Category--</option>
+            <option value="others">Others</option>
+            <option *ngFor="let category of itemCategoryList" value={{category}}>
+              {{category}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="otherSelected">
+          <label for="categoryName">Category Name</label>
+          <input type="text" class="form-control" name="categoryName" [(ngModel)]="form.categoryName" required
+            #categoryName="ngModel" />
+          <div class="alert-danger" *ngIf="f.submitted && categoryName.invalid">
+            <div *ngIf="categoryName.errors.required">Category name is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="itemStatus">Item Status</label>
+          <select class="form-control" name="itemStatus" [(ngModel)]="form.itemStatus">
+            <option>--Select Status--</option>
+            <option *ngFor="let status of itemStatusList" value={{status}}>
+              {{status}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="itemQuantity">Item Quantity</label>
+          <select class="form-control" name="itemQuantity" [(ngModel)]="form.itemQuantity"
+            (change)="otherQuantitySelected()">
+            <option>--Select Quantity--</option>
+            <option value="10">10</option>
+            <option *ngFor="let quantity of itemQuantityList" value={{quantity}}>
+              {{quantity}}
+            </option>
+            <option value="others">Others</option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="otherQuantity">
+          <label for="quantityMeasure">Quantity Measure</label>
+          <input type="text" class="form-control" name="quantityMeasure" [(ngModel)]="form.quantityMeasure" required
+            #quantityMeasure="ngModel" />
+          <div class="alert-danger" *ngIf="f.submitted && quantityMeasure.invalid">
+            <div *ngIf="quantityMeasure.errors.required">Quantity measure is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="itemUnit">Unit</label>
+          <!-- <input type="text" class="form-control" name="quantityMeasure" [(ngModel)]="form.quantityMeasure" required
+      #quantityMeasure="ngModel" />
+    <div class="alert-danger" *ngIf="f.submitted && quantityMeasure.invalid">
+      <div *ngIf="quantityMeasure.errors.required">Quantity measure is required</div>
+    </div> -->
+          <select class="form-control" name="itemUnit" [(ngModel)]="form.unit">
+            <option>--Select Unit--</option>
+            <option value="10">Kg</option>
+            <option *ngFor="let item of weightUnitList" value={{item.unit}}>
+              {{item.unit[0]}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="itemPrice">Item Price</label>
+          <input type="number" class="form-control" name="itemPrice" [(ngModel)]="form.itemPrice" required
+            #itemPrice="ngModel" />
+          <div class="alert-danger" *ngIf="f.submitted && itemPrice.invalid">
+            <div *ngIf="itemPrice.errors.required">Please provide Price</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Save</button>
+      </div>
+
+      <!-- <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+        Failed to add item!!<br />{{ errorMessage }}
+      </div> -->
+    </form>
+
+    <!-- <div class="alert alert-success" *ngIf="isSuccessful">
+      Item added successfully!!
+    </div> -->
+
+    <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+  </div>
+</div>

@@ -1,0 +1,31 @@
+.card-container.card {
+  max-width: 550px !important;
+  padding: 40px 40px;
+}
+
+.card {
+  background-color: #f7f7f7;
+  padding: 20px 25px 30px;
+  margin: 0 auto 25px;
+  margin-top: 50px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+:host ::ng-deep .p-dropdown {
+  width: 17rem;
+}
+
+@media screen and (max-width: 350px) {
+  :host ::ng-deep .p-dropdown {
+  width: 12.9rem;
+}
+}
+
+:host ::ng-deep .p-dropdown-item{
+  white-space: unset !important; 
+} 

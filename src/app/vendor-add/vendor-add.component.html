@@ -1,0 +1,164 @@
+<div class="my-overlay" *ngIf="showOverlay">
+  <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+</div>
+
+<div class="col-md-16">
+  <div class="card card-container">
+    <label style="text-align: center;"><b>Vendor Registration Form</b></label>
+    <form *ngIf="!isSuccessful" name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+
+      <div class="form-group">
+        <label for="storetype">Store Type</label>
+        <select class="form-control" name="storetype" [(ngModel)]="form.storetype" (change)="openDeliveryOption()"
+          required>
+          <option selected disabled hidden value="undefined">Select Store Type</option>
+          <option *ngFor="let vendorType of vendorTypes" value={{vendorType}}>
+            {{vendorType}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="storename">Store Name</label>
+        <input type="text" class="form-control" name="storename" [(ngModel)]="form.storename" required
+          #storename="ngModel" />
+        <div class="alert-danger" *ngIf="f.submitted && storename.invalid">
+          <div *ngIf="storename.errors.required">Storename is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Phone</label>
+        <input class="form-control" name="phone" [(ngModel)]="form.phone" #phone="ngModel" [pattern]="mobNumberPattern"
+          required placeholder="9999999999" />
+        <div class="alert-danger" *ngIf="f.submitted && phone.invalid">
+          <div *ngIf="phone.errors.required">Phone is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Store Location</label>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="radioButtons" id="radio2" value="1"
+            (click)="radioSelected('auto')" checked>
+          <label class="form-check-label" for="radio2">Auto Detection</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="radioButtons" id="radio1" value="0"
+            (click)="radioSelected('manual')">
+          <label class="form-check-label" for="radio1">Manual</label>
+        </div>
+
+        <div class="form-group">
+          <input *ngIf="manual" ngx-google-places-autocomplete class="form-control mt-2" [options]='options'
+            name="location" [(ngModel)]="form.location" #location="ngModel" (onAddressChange)="addressChange($event)"
+            required />
+          <div class="alert-danger" *ngIf="f.submitted && location.invalid">
+            <div *ngIf="location.errors.required">Location is required</div>
+          </div>
+
+          <div class="form-group" *ngIf="!manual">
+            <label for="lat">Latitude</label>
+            <input class="form-control" name="lat" [(ngModel)]="form.lat" readonly #lat="ngModel" />
+          </div>
+
+          <div class="form-group" *ngIf="!manual">
+            <label for="lang">Longitude</label>
+            <input class="form-control" name="lang" [(ngModel)]="form.lang" readonly #lang="ngModel" />
+          </div>
+
+          <!-- <input *ngIf="!manual" type="text" class="form-control mt-2" name="lat" disabled value="{{lat}}">
+          <input *ngIf="!manual" type="text" class="form-control mt-2" name="lng" disabled value="{{lng}}"> -->
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Store Address</label>
+        <textarea class="form-control" name="address" [(ngModel)]="form.address" readonly="readonly"
+          #address="ngModel"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" name="email" [(ngModel)]="form.email" #email="ngModel" required />
+        <div class="alert-danger" *ngIf="f.submitted && email.invalid">
+          <div *ngIf="email.errors.required">Email is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="location">RazorPay Account Id</label>
+        <input class="form-control" name="accId" [(ngModel)]="form.accId" #accId="ngModel" required />
+        <div class="alert-danger" *ngIf="f.submitted && accId.invalid">
+          <div *ngIf="accId.errors.required">Please give RazorPay account id.</div>
+        </div>
+      </div> 
+
+      <div class="form-group" *ngIf="gstDisplay">
+        <label for="sgst">SGST</label>
+        <input class="form-control" name="sGST" [(ngModel)]="form.sGST" #sGST="ngModel" required />
+        <div class="alert-danger" *ngIf="f.submitted && sGST.invalid">
+          <div *ngIf="sGST.errors.required">Please provide SGST.</div>
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="gstDisplay">
+        <label for="cgst">CGST</label>
+        <input class="form-control" name="cGST" [(ngModel)]="form.cGST" #cGST="ngModel" required />
+        <div class="alert-danger" *ngIf="f.submitted && cGST.invalid">
+          <div *ngIf="cGST.errors.required">Please provide CGST.</div>
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="gstnDisplay">
+        <label for="gstn">GSTN</label>
+        <input class="form-control" name="gstn" [(ngModel)]="form.gstn" #gstn="ngModel" required />
+        <div class="alert-danger" *ngIf="f.submitted && gstn.invalid">
+          <div *ngIf="gstn.errors.required">Please provide GST Number.</div>
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf='isFssai'>
+        <label for="fssai">FSSAI</label>
+        <input class="form-control" name="fssai" [(ngModel)]="form.fssai" #fssai="ngModel" optional />
+        <!-- <div class="alert-danger" *ngIf="f.submitted && sGST.invalid">
+          <div *ngIf="sGST.errors.required">Please provide SGST.</div>
+        </div> -->
+      </div>
+
+      <div class="form-group" *ngIf="offerDisplay">
+        <label for="cgst">OFFER</label>
+        <input class="form-control" name="offer" [(ngModel)]="form.offer" #offer="ngModel" required />
+        <div class="alert-danger" *ngIf="f.submitted && offer.invalid">
+          <div *ngIf="offer.errors.required">Please provide offer.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="opted">Delivery Opted</label>
+        <input type="checkbox" name="opted" [(ngModel)]="form.opted" [disabled]="isOpted" />
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Add Vendor</button>
+      </div>
+
+      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+        Vendor registration failed!!<br />
+        {{errorMessage}}
+      </div>
+    </form>
+
+    <div class="alert alert-success" *ngIf="isSuccessful">
+      Vendor added successfully!!
+      <div *ngIf="display">
+        <qr-code [value]="qrValue" size="200"></qr-code>
+        <span>
+          <a [href]="href" (click)="downloadQrCode()" [download]="fileName">Download Image</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
