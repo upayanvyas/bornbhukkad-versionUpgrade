@@ -27,9 +27,9 @@
           <label for="myfile">File Upload</label>
           <input class="mb-4" type="file" accept=".xlsx, .xls" id="customFile" name="myfile"
             (change)="onFileSelect($event.target.files)">
-          <div class="alert-danger" *ngIf="f.submitted">
+          <!-- <div class="alert-danger" *ngIf="f.submitted">
             <div *ngIf="myfile.errors.required">file is required</div>
-          </div>
+          </div> -->
         </div>
       </div>
 

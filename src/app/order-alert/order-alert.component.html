@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="container">
+            <div class="card col-sm-8 mx-auto">
+                <div class="card-content">
+                    <form action="" ngSubmit="acceptOrder()">
+                    <div class="card-header">New Order</div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Availability</th>
+                            </thead>
+                            <tbody id="myDiv">
+                                <!-- <tr *ngFor="let key of order.keys; let i=index">
+                                    <td id={key+i}>{{key}}</td>
+                                    <td>{{order.values[i]}}</td>
+                                    <td><input type="checkbox" (click)="addToList(key)"></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button class="btn btn-success" type="submit">Accept</button>
+                        <button class="btn btn-danger">Reject</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -59,12 +59,14 @@ import { ChartModule } from 'primeng/chart';
 import { TabViewModule } from 'primeng/tabview';
 import { PanelModule } from 'primeng/panel';
 import { BankdetailsComponent } from './bankdetails/bankdetails.component';
+import { OrderAlertComponent } from './order-alert/order-alert.component';
 @NgModule({
   declarations: [
     AppComponent, LoginComponent, RegisterComponent, HomeComponent, BoardAdminComponent, BoardUserComponent, BoardModeratorComponent, ProfileComponent,
     VendorComponent, VendorslistComponent, OrderdetailsComponent, ReportComponent, ItemListComponent, ItemdetailsComponent, FooterComponent, QrcodelistComponent,
     DisableRightClickDirective,
-    BankdetailsComponent
+    BankdetailsComponent,
+    OrderAlertComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, GooglePlaceModule, AgGridModule, BrowserAnimationsModule,

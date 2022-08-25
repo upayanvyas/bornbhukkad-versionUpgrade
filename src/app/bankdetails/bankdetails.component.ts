@@ -17,8 +17,8 @@ export class BankdetailsComponent implements OnInit {
     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Bank details added successfully.', life: 4000 });
   }
 
-  onSubmit(){
-    console.log('form submitted')
+  onSubmit(f){
+    console.log('form submitted', f)
   }
 
 }

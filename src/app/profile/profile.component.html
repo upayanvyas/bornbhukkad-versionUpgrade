@@ -12,10 +12,10 @@
       <img src="../../assets/bb_images/dummy-post-horisontal.jpg" alt="Responsive image" class="img-fluid">
     </div> -->
 
-    <div class="mb-3" *ngIf="!showAdminBoard && !showModeratorBoard && !showSalesBoard" >
+    <!-- <div class="mb-3" *ngIf="!showAdminBoard && !showModeratorBoard && !showSalesBoard" >
       <img src="../../assets/bb_images/dummy-post-horisontal.jpg" alt="Responsive image" class="img-fluid">
-    </div>
-    <form class="col-sm-12" (ngSubmit)="uploadImage(fileToUpload)" *ngIf=" !showAdminBoard && !showModeratorBoard && !showSalesBoard">
+    </div> -->
+    <!-- <form class="col-sm-12" (ngSubmit)="uploadImage(fileToUpload)" *ngIf=" !showAdminBoard && !showModeratorBoard && !showSalesBoard">
       <div class="row">
         <div class="col-sm-12">
           <input type="file" class="mb-2" id="file"  limit="1" accept="image/png, image/gif, image/jpeg" (change)="handleFileInput($event.target.files)">
@@ -24,9 +24,9 @@
           <button class="btn btn-primary w-100" type="submit">Upload</button>
         </div>
       </div>
-    </form>
+    </form> -->
 
-    <hr *ngIf=" !showAdminBoard && !showModeratorBoard && !showSalesBoard">
+    <!-- <hr *ngIf=" !showAdminBoard && !showModeratorBoard && !showSalesBoard"> -->
 
     <h3>
       <strong>{{ currentUser.username }}</strong> Profile

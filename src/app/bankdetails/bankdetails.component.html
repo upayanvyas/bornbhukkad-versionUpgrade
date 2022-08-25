@@ -1,11 +1,11 @@
 <p-toast></p-toast>
 <div class="col-md-12">
-  <div class="my-overlay" *ngIf="showOverlay">
+  <!-- <div class="my-overlay" *ngIf="showOverlay">
     <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
-  </div>
+  </div> -->
   <div class="card card-container my-auto">
     <label style="text-align: center;"><b>Bank Details</b></label>
-    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit(f.form.value)" #f="ngForm" novalidate>
 
       <div class="form-group">
         <label for="bankName">Bank Name*</label>

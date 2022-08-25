@@ -16,6 +16,7 @@ import { ItemListComponent } from './item-add/item-add.component';
 import { ItemdetailsComponent } from './itemdetails/itemdetails.component';
 import { QrcodelistComponent } from './qrcodelist/qrcodelist.component';
 import { BankdetailsComponent } from './bankdetails/bankdetails.component';
+import { OrderAlertComponent } from './order-alert/order-alert.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'itemDetails', component: ItemdetailsComponent },
   { path: 'generateQRCodes', component: QrcodelistComponent },
   { path: 'bankDetails', component: BankdetailsComponent },
+  { path: 'orderAlert', component: OrderAlertComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

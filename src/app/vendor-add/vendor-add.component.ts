@@ -52,7 +52,7 @@ export class VendorComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    document.getElementsByTagName('textarea').address.readOnly = false
+    // document.getElementsByTagName('textarea').address.readOnly = false
   }
 
   openDeliveryOption() {
@@ -218,14 +218,14 @@ export class VendorComponent implements OnInit {
       // this.form.address = this.form.location = ''
       delete this.form.location
       delete this.form.address
-      document.getElementsByTagName('textarea').address.readOnly = false
+      // document.getElementsByTagName('textarea').address.readOnly = false
       this.manual = false
       console.log('form values of auto: ', this.form)
     } else {
       delete this.form.lat
       delete this.form.lang
       this.manual = true
-      document.getElementsByTagName('textarea').address.readOnly = true
+      // document.getElementsByTagName('textarea').address.readOnly = true
       console.log('form values manual: ', this.form)
     }
   }
