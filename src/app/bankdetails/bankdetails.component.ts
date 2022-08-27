@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { BankDetailsService } from './bank-details.service';
 
 @Component({
   selector: 'app-bankdetails',
@@ -7,18 +8,23 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./bankdetails.component.css']
 })
 export class BankdetailsComponent implements OnInit {
-  form:any = {}
+  form: any = {}
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService, private bankDetailService: BankDetailsService) { }
 
   ngOnInit() {
   }
-  showToaster(){
+  showToaster() {
     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Bank details added successfully.', life: 4000 });
   }
 
-  onSubmit(f){
+  onSubmit(f) {
     console.log('form submitted', f)
+    this.bankDetailService.addBankDetails(f).subscribe((res) => {
+      console.log('res: ', res)
+    }, (err) => {
+      console.log('err: ', err)
+    })
   }
 
 }
